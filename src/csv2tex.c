@@ -8,6 +8,7 @@
 
 int debug = 0;
 
+//Returns the maximum width
 long maxWidth(char *data, char seperator) {
 	int i = 0;
 	int tempmax = 0;
@@ -24,6 +25,7 @@ long maxWidth(char *data, char seperator) {
 	return max;
 }
 
+//Print the data as tex code
 void printTex(char *data, int width, char seperator) {
 	
 	printf("\\begin{table}[H]\n\n\\begin{tabular}{");
@@ -36,7 +38,7 @@ void printTex(char *data, int width, char seperator) {
 	
 	int i = 0;
 	while (data[i] != '\0') {
-		// ; turns to &
+		// "seperator" turns to &
 		if (data[i] == seperator) printf(" & ");
 		
 		/*
@@ -48,7 +50,7 @@ void printTex(char *data, int width, char seperator) {
 		}
 		*/
 		
-		//this happpens on non-windows
+		//newline
 		else if (data[i] == '\n') printf(" \\\\\n\t\\hline ");
 		
 		//non of the above -> regular datafield
@@ -75,6 +77,8 @@ int main(int argc, char *argv[])
 	//Reading command line arguments
 	for (int i = 1; i < argc; ++i) {
 	
+		//debug mode
+		//0 normal, 1 some, 2 EXTREME DEBUG(tm)
 		if (!strcmp(argv[i], "-debug") || !strcmp(argv[i], "-d")) {
 			debug = atoi(argv[++i]);
 			if (!debug || i >= argc) {
@@ -85,6 +89,8 @@ int main(int argc, char *argv[])
 			printf("*Debug* Debug mode %d activated.\n", debug);
 		}
 		
+		//Specify seperator used in csv
+		//todo: add alternatives for misinterpreted symbols
 		else if (!strcmp(argv[i], "-seperator") || !strcmp(argv[i], "-s")) {
 			++i;
 			if (i < argc) {
@@ -97,10 +103,12 @@ int main(int argc, char *argv[])
 			}
 		}
 		
+		//I dont know what it is... it must be the file
 		else if (filepos == 0) {
 			filepos = i;
 		}
 		
+		//Oh noes, i cant handle multiple files
 		else {
 			fprintf(stderr, "Error: Processing of multiple files not allowed.\n");
 			return EXIT_FAILURE;
@@ -121,6 +129,7 @@ int main(int argc, char *argv[])
 		return EXIT_FAILURE;
 	}
 	
+	//DEBUGMODE 2
 	//output of the unchanged file
 	if (debug >= 2) {
 		printf("Printing file:\n%s\n", data);
@@ -131,7 +140,7 @@ int main(int argc, char *argv[])
 	
 	//It's zero. wat
 	if (!width) {
-		fprintf(stderr, "Error: Expected ;\n");
+		fprintf(stderr, "Error: Expected some %c\n", seperator);
 		return EXIT_FAILURE;
 	}
 	
