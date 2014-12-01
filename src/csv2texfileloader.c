@@ -44,7 +44,10 @@ char* loadFile(char* address)
 	long newlinecount = 0;
 	for (int i = 0; i<length; ++i) {
 		rv[i] = getc(file);
-		if (rv[i] == '\r') ++newlinecount;
+		if (rv[i] == '\r'){
+			++newlinecount;
+			--i;
+		}
 	}
 	rv[length-newlinecount] = '\0';
 	#else
