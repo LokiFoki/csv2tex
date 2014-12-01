@@ -1,6 +1,7 @@
 //csv2tex
 
 #include "csv2tex.h"
+#include "csv2texfileloader.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -38,11 +39,14 @@ void printTex(char *data, int width, char seperator) {
 		// ; turns to &
 		if (data[i] == seperator) printf(" & ");
 		
+		/*
+		NOT NEEDED SINCE ITS HANDLED IN THE FILELOADER NOW
 		//windows end of line is \r\n, so skip the \n
 		else if (data[i] == '\r') {
 			printf(" \\\\\n\t\\hline ");
 			++i;
 		}
+		*/
 		
 		//this happpens on non-windows
 		else if (data[i] == '\n') printf(" \\\\\n\t\\hline ");

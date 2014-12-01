@@ -1,12 +1,10 @@
-//csv2tex file loader HEADER
+//csv2tex HEADER
 
 #include <stdio.h>
 
 #ifndef CSV2TEX_H
 #define CSV2TEX_H
 
-int debug;
-
-char* loadFile(char*);
+extern int debug;
 
 #endif
