@@ -51,7 +51,9 @@ void printTex(char *data, int width, char seperator) {
 		*/
 		
 		//newline
-		else if (data[i] == '\n') printf(" \\\\\n\t\\hline ");
+		else if (data[i] == '\n') 
+			if (data[i-1] == '\n') break;	//remove multiple linebreaks
+			else printf(" \\\\\n\t\\hline ");
 		
 		//non of the above -> regular datafield
 		else printf("%c", data[i]);
@@ -69,8 +71,19 @@ int main(int argc, char *argv[])
 	char seperator = ';';
 	
 	//Help needed?
+	const char * helptext = "csv2tex - convert csv-data to .tex-compatible tables. \n "
+							"Usage: csv2tex [-s 'SEPARATORCHAR'] [-d 1/2] PATH/TO/FILE.csv\n\n"
+							
+							"Options:\n"
+							"-d :\tDebugmode offers more information about file access and other suboperations.\n"
+							"\tHigher number for more information.\n"
+
+							"-s : Chose which character separates datafields in your .csv file (e.g. 3;5;8 vs. 7-13-9)\n"
+							"\n"
+							"Maintained by ::::::\n"
+							"Enjoy!\n";
 	if (argc == 2 && (!strcmp(argv[1], "-h") || !strcmp(argv[1], "-help"))) {
-		printf("todo: write help text ;)\n");
+		printf("%s",helptext);
 		return EXIT_SUCCESS;
 	}
 	
@@ -117,7 +130,7 @@ int main(int argc, char *argv[])
 	
 	//So was there a fileaddress in the arguments?
 	if (filepos == 0) {
-		fprintf(stderr, "Error: No file specified.\n");
+		fprintf(stderr, "Error: No file specified.Type 'csv2tex -h' for help.\n");
 		return EXIT_FAILURE;
 	}
 	
