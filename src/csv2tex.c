@@ -1,12 +1,15 @@
 //csv2tex
 
 #include "csv2tex.h"
+#include "csv2texcommandline.h"
 #include "csv2texfileloader.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 int debug = 0;
+char seperator = ';';
+int filepos_in_args = 0;
 
 //Returns the maximum width
 long maxWidth(char *data, char seperator) {
@@ -64,65 +67,21 @@ void printTex(char *data, int width, char seperator) {
 int main(int argc, char *argv[])
 {
 	char *data = NULL;
-	int filepos = 0;
 	int width;
-	char seperator = ';';
 	
-	//Help needed?
-	if (argc == 2 && (!strcmp(argv[1], "-h") || !strcmp(argv[1], "-help"))) {
-		printf("todo: write help text ;)\n");
-		return EXIT_SUCCESS;
-	}
+	int readCommandline_return = readCommandline(argc, argv);
 	
-	//Reading command line arguments
-	for (int i = 1; i < argc; ++i) {
-	
-		//debug mode
-		//0 normal, 1 some, 2 EXTREME DEBUG(tm)
-		if (!strcmp(argv[i], "-debug") || !strcmp(argv[i], "-d")) {
-			debug = atoi(argv[++i]);
-			if (!debug || i >= argc) {
-				fprintf(stderr, "Error: -debug [value] needs value 1 or 2.\n");
-				return EXIT_FAILURE;
-			}
-			
-			printf("*Debug* Debug mode %d activated.\n", debug);
-		}
-		
-		//Specify seperator used in csv
-		//todo: add alternatives for misinterpreted symbols
-		else if (!strcmp(argv[i], "-seperator") || !strcmp(argv[i], "-s")) {
-			++i;
-			if (i < argc) {
-				//& is misinterpreted by console, use "and" instead
-				if (!strcmp(argv[i], "and")) seperator = '&';
-				else seperator = *argv[i];
-			} else {
-				printf("Error: -seperator [char] needs char.\n");
-				return EXIT_FAILURE;
-			}
-		}
-		
-		//I dont know what it is... it must be the file
-		else if (filepos == 0) {
-			filepos = i;
-		}
-		
-		//Oh noes, i cant handle multiple files
-		else {
-			fprintf(stderr, "Error: Processing of multiple files not allowed.\n");
-			return EXIT_FAILURE;
-		}
-	}
+	if (readCommandline_return == 0) return EXIT_FAILURE;
+	if (readCommandline_return == -1) return EXIT_SUCCESS;
 	
 	//So was there a fileaddress in the arguments?
-	if (filepos == 0) {
+	if (filepos_in_args == 0) {
 		fprintf(stderr, "Error: No file specified.\n");
 		return EXIT_FAILURE;
 	}
 	
 	//Load that file
-	data = loadFile(argv[filepos]);
+	data = loadFile(argv[filepos_in_args]);
 	
 	//Didnt work lol
 	if (data == NULL) {
