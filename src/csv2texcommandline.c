@@ -13,8 +13,20 @@
 int readCommandline(int argc, char* argv[])
 {
 	//Help needed?
+	const char * helptext = "csv2tex - convert csv-data to .tex-compatible tables. \n "
+							"Usage: csv2tex [-s 'SEPARATORCHAR'] [-d 1/2] PATH/TO/FILE.csv\n\n"
+							
+							"Options:\n"
+							"-d :\tDebugmode offers more information about file access and other suboperations.\n"
+							"\tHigher number for more information.\n"
+
+							"-s : Chose which character separates datafields in your .csv file (e.g. 3;5;8 vs. 7-13-9)\n"
+							"\n"
+							"Maintained by ::::::\n"
+							"Enjoy!\n";
+	
 	if (argc == 2 && (!strcmp(argv[1], "-h") || !strcmp(argv[1], "--help"))) {
-		printf("todo: write help text ;)\n");
+		printf("%s",helptext);
 		return -1;
 	}
 	

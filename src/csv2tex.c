@@ -54,7 +54,9 @@ void printTex(char *data, int width, char seperator) {
 		*/
 		
 		//newline
-		else if (data[i] == '\n') printf(" \\\\\n\t\\hline ");
+		else if (data[i] == '\n') 
+			if (data[i-1] == '\n') break;	//remove multiple linebreaks
+			else printf(" \\\\\n\t\\hline ");
 		
 		//non of the above -> regular datafield
 		else printf("%c", data[i]);
@@ -76,7 +78,7 @@ int main(int argc, char *argv[])
 	
 	//So was there a fileaddress in the arguments?
 	if (filepos_in_args == 0) {
-		fprintf(stderr, "Error: No file specified.\n");
+		fprintf(stderr, "Error: No file specified.Type 'csv2tex -h' for help.\n");
 		return EXIT_FAILURE;
 	}
 	
