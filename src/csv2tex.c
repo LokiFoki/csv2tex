@@ -54,12 +54,12 @@ void printTex(char *data, int width, char seperator) {
 		*/
 		
 		//newline
-		else if (data[i] == '\n') 
+		else if (data[i] == '\n'){
 			if (data[i-1] == '\n') break;	//remove multiple linebreaks
 			else printf(" \\\\\n\t\\hline ");
 		
 		//non of the above -> regular datafield
-		else printf("%c", data[i]);
+		}else printf("%c", data[i]);
 		++i;
 	}
 	

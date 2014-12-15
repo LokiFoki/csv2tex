@@ -52,6 +52,7 @@ int readCommandline(int argc, char* argv[])
 			if (i < argc) {
 				//& is misinterpreted by console, use "and" instead
 				if (!strcmp(argv[i], "and")) seperator = '&';
+				else if(!strcmp(argv[i], "space")) seperator = ' ';
 				else seperator = *argv[i];
 			} else {
 				printf("Error: -seperator [char] needs char.\n");
