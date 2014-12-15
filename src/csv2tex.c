@@ -44,15 +44,6 @@ void printTex(char *data, int width, char seperator) {
 		// "seperator" turns to &
 		if (data[i] == seperator) printf(" & ");
 		
-		/*
-		NOT NEEDED SINCE ITS HANDLED IN THE FILELOADER NOW
-		//windows end of line is \r\n, so skip the \n
-		else if (data[i] == '\r') {
-			printf(" \\\\\n\t\\hline ");
-			++i;
-		}
-		*/
-		
 		//newline
 		else if (data[i] == '\n'){
 			if (data[i-1] == '\n') break;	//remove multiple linebreaks
@@ -78,7 +69,7 @@ int main(int argc, char *argv[])
 	
 	//So was there a fileaddress in the arguments?
 	if (filepos_in_args == 0) {
-		fprintf(stderr, "Error: No file specified.Type 'csv2tex -h' for help.\n");
+		fprintf(stderr, "Error: No file specified.\nType 'csv2tex -h' for help.\n");
 		return EXIT_FAILURE;
 	}
 	

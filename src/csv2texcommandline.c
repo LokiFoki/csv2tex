@@ -17,10 +17,15 @@ int readCommandline(int argc, char* argv[])
 							"Usage: csv2tex [-s 'SEPARATORCHAR'] [-d 1/2] PATH/TO/FILE.csv\n\n"
 							
 							"Options:\n"
-							"-d :\tDebugmode offers more information about file access and other suboperations.\n"
-							"\tHigher number for more information.\n"
+							"-d, -debug :\tDebugmode offers more information about\n"
+							"\t\tfile access and other suboperations.\n"
+							"\t\tHigher number for more information.\n"
 
-							"-s : Chose which character separates datafields in your .csv file (e.g. 3;5;8 vs. 7-13-9)\n"
+							"-s,seperator : \tChose which character separates datafields in your .csv file\n"
+							"\t\t(e.g. 3;5;8 vs. 7-13-9)\n"
+							"\t\tFor symbols misinterpreted by console:\n"
+							"\t\t\t\"and\" for '&',\n"
+							"\t\t\t\"space\" for ' '"
 							"\n"
 							"Maintained by ::::::\n"
 							"Enjoy!\n";
