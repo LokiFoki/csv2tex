@@ -57,4 +57,3 @@ loadFile (char* address)
 	
 	return rv;
 }
-
