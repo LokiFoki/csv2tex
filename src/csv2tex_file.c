@@ -36,7 +36,7 @@ load_file (char* address)
 	
 	long length = get_size(file);
 	
-	if (debug >= 1) {
+	if (csv2tex_debug >= 1) {
 		printf("*Debug* File size: %ld Bytes\n", length);
 	}
 	

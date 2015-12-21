@@ -41,13 +41,13 @@ int read_args(int argc, char* argv[])
 		//debug mode
 		//0 normal, 1 some, 2 EXTREME DEBUG(tm)
 		if (!strcmp(argv[i], "--debug") || !strcmp(argv[i], "-d")) {
-			debug = atoi(argv[++i]);
-			if (!debug || i >= argc) {
+			csv2tex_debug = atoi(argv[++i]);
+			if (!csv2tex_debug || i >= argc) {
 				fprintf(stderr, "Error: -debug [value] needs value 1 or 2.\n");
 				return 0;
 			}
 			
-			printf("*Debug* Debug mode %d activated.\n", debug);
+			printf("*Debug* Debug mode %d activated.\n", csv2tex_debug);
 		}
 		
 		//Specify seperator used in csv
@@ -56,9 +56,9 @@ int read_args(int argc, char* argv[])
 			++i;
 			if (i < argc) {
 				//& is misinterpreted by console, use "and" instead
-				if (!strcmp(argv[i], "and")) seperator = '&';
-				else if(!strcmp(argv[i], "space")) seperator = ' ';
-				else seperator = *argv[i];
+				if (!strcmp(argv[i], "and")) csv2tex_seperator = '&';
+				else if(!strcmp(argv[i], "space")) csv2tex_seperator = ' ';
+				else csv2tex_seperator = *argv[i];
 			} else {
 				printf("Error: -seperator [char] needs char.\n");
 				return 0;
@@ -66,8 +66,8 @@ int read_args(int argc, char* argv[])
 		}
 		
 		//I dont know what it is... it must be the file
-		else if (filepos_in_args == 0) {
-			filepos_in_args = i;
+		else if (csv2tex_filepos_in_args == 0) {
+			csv2tex_filepos_in_args = i;
 		}
 		
 		//Oh noes, i cant handle multiple files

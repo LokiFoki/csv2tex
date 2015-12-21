@@ -7,9 +7,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-int debug = 0;
-char seperator = ';';
-int filepos_in_args = 0;
+int csv2tex_debug = 0;
+char csv2tex_seperator = ';';
+int csv2tex_filepos_in_args = 0;
 
 //Returns the maximum width
 static inline
@@ -76,34 +76,34 @@ main (int argc, char *argv[])
 		return EXIT_SUCCESS;
 	
 	//So was there a fileaddress in the arguments?
-	if (filepos_in_args == 0) {
+	if (csv2tex_filepos_in_args == 0) {
 		fprintf(stderr, "Error: No file specified.\nType 'csv2tex -h' for help.\n");
 		return EXIT_FAILURE;
 	}
 	
 	//Load that file
-	data = load_file(argv[filepos_in_args]);
+	data = load_file(argv[csv2tex_filepos_in_args]);
 	if (data == NULL)
 		return EXIT_FAILURE;
 	
 	//DEBUGMODE 2
 	//output of the unchanged file
-	if (debug >= 2)
+	if (csv2tex_debug >= 2)
 		printf("Printing file:\n%s\n", data);
 	
 	//Whats the width/number of column
-	width = max_width(data, seperator);
+	width = max_width(data, csv2tex_seperator);
 	
 	//It's zero. wat
 	if (!width) {
-		fprintf(stderr, "Error: Expected some %c\n", seperator);
+		fprintf(stderr, "Error: Expected some %c\n", csv2tex_seperator);
 		return EXIT_FAILURE;
 	}
 	
-	if (debug >= 1) printf("*Debug* Width = %d.\n", width);
+	if (csv2tex_debug >= 1) printf("*Debug* Width = %d.\n", width);
 	
 	//This is where the magic happens
-	print_tex(data, width, seperator);
+	print_tex(data, width, csv2tex_seperator);
 	
 	return EXIT_SUCCESS;
 }

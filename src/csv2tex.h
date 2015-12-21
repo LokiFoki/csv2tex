@@ -3,8 +3,8 @@
 #ifndef CSV2TEX_H
 #define CSV2TEX_H
 
-extern int debug;
-extern char seperator;
-extern int filepos_in_args;
+extern int csv2tex_debug;
+extern char csv2tex_seperator;
+extern int csv2tex_filepos_in_args;
 
 #endif
