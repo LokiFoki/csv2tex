@@ -1,8 +1,8 @@
 //csv2tex
 
 #include "csv2tex.h"
-#include "csv2texcommandline.h"
-#include "csv2texfileloader.h"
+#include "csv2tex_args.h"
+#include "csv2tex_file.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -68,11 +68,11 @@ main (int argc, char *argv[])
 	char *data = NULL;
 	int width;
 	
-	int read_commandline_return = readCommandline(argc, argv);
+	int read_args_return = read_args(argc, argv);
 	
-	if (read_commandline_return == 0)
+	if (read_args_return == 0)
 		return EXIT_FAILURE;
-	if (read_commandline_return == -1)
+	if (read_args_return == -1)
 		return EXIT_SUCCESS;
 	
 	//So was there a fileaddress in the arguments?
@@ -82,7 +82,7 @@ main (int argc, char *argv[])
 	}
 	
 	//Load that file
-	data = loadFile(argv[filepos_in_args]);
+	data = load_file(argv[filepos_in_args]);
 	if (data == NULL)
 		return EXIT_FAILURE;
 	

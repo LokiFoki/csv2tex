@@ -1,29 +1,29 @@
 //csv2tex file loader HEADER
 
 #include "csv2tex.h"
-#include "csv2texfileloader.h"
+#include "csv2tex_file.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 //Returns file length in byte
 static inline
 long
-getSize (FILE *file)
+get_size (FILE *file)
 {
 	long pos = ftell(file);
-	long rv;
+	long size;
 	
 	fseek(file, 0L, SEEK_END);
-	rv = ftell(file);
+	size = ftell(file);
 	fseek(file, pos, SEEK_SET);
 	
-	return rv;
+	return size;
 }
 
 //Opens file
 //Returns NULL if an error occurs and prints error message
 char*
-loadFile (char* address)
+load_file (char* address)
 {
 	FILE *file;
 	
@@ -34,7 +34,7 @@ loadFile (char* address)
 		return NULL;
 	}
 	
-	long length = getSize(file);
+	long length = get_size(file);
 	
 	if (debug >= 1) {
 		printf("*Debug* File size: %ld Bytes\n", length);

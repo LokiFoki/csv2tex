@@ -1,7 +1,7 @@
 //csv2texcommandline
 
 #include "csv2tex.h"
-#include "csv2texcommandline.h"
+#include "csv2tex_args.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -9,8 +9,8 @@
 //returns
 //	0:Failure
 //	1:Success
-//  -1:Help wanted
-int readCommandline(int argc, char* argv[])
+// -1:Help wanted
+int read_args(int argc, char* argv[])
 {
 	//Help needed?
 	const char * helptext = "csv2tex - convert csv-data to .tex-compatible tables. \n "
