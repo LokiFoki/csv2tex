@@ -6,7 +6,9 @@
 #include <stdlib.h>
 
 //Returns file length in byte
-long getSize(FILE *file)
+static inline
+long
+getSize (FILE *file)
 {
 	long pos = ftell(file);
 	long rv;
@@ -20,7 +22,8 @@ long getSize(FILE *file)
 
 //Opens file
 //Returns NULL if an error occurs and prints error message
-char* loadFile(char* address)
+char*
+loadFile (char* address)
 {
 	FILE *file;
 	
@@ -38,24 +41,17 @@ char* loadFile(char* address)
 	}
 	
 	char* rv = malloc(length + 1);
-	
-	//Newline in Windows: \r\n
-	#ifdef _WIN32
+
 	long newlinecount = 0;
-	for (int i = 0; i<length; ++i) {
+	for (int i = 0; i < length; ++i) {
 		rv[i] = getc(file);
+		//Detect '\r' and ignore it
 		if (rv[i] == '\r'){
 			++newlinecount;
 			--i;
 		}
 	}
 	rv[length-newlinecount] = '\0';
-	#else
-	for (int i = 0; i<length; ++i) {
-		rv[i] = getc(file);
-	}
-	rv[length] = '\0';
-	#endif
 	
 	fclose(file);
 	
